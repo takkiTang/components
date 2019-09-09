@@ -20,7 +20,16 @@
         v-bind="searchItem.props || {}"
         :key="`${searchItem.key}_${index}`"
         @change="handelChange"
-      />
+      >
+        <template v-if="searchItem.childrenTag">
+          <component
+            v-for="(item,i) in searchItem.props.options"
+            v-bind="item"
+            :key="`${searchItem.key}_${index}_${i}`"
+            :is="searchItem.childrenTag"
+          />
+        </template>
+      </component>
     </template>
   </section>
 </template>
@@ -71,12 +80,14 @@ export default {
     },
     computeFormItem (config, form) {
       const item = { ...config }
-
       if (item.type) {
         let type = item.type || 'text'
 
         let def = this.ElementMapping[type]
         item.tag = def.component
+        if (def.children) {
+          item.childrenTag = def.children.component
+        }
         item.props = Object.assign({}, def.props, item.props)
       } else {
         item.tag = item.component

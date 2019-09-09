@@ -128,7 +128,6 @@ export default {
     }
   },
   mounted () {
-    console.log(this.$listeners)
     this.getTableData()
   },
   methods: {
@@ -154,13 +153,17 @@ export default {
         [pageSizeParamProp]: this.pageAttrs.pageSize
       })
 
-      console.log(queryParams)
+      // console.log(queryParams)
       this.isLoading = true
-      let { data } = await this.$axios.post(this.url)
-      this.tableData = this.getProps(dataProps, data) || []
-      this.currentPage = this.getProps(currentPageProps, data)
-      this.total = this.getProps(totalProps, data)
-      this.isLoading = false
+      try {
+        let { data } = await this.$axios.post(this.url)
+        this.tableData = this.getProps(dataProps, data) || []
+        this.currentPage = this.getProps(currentPageProps, data)
+        this.total = this.getProps(totalProps, data)
+        this.isLoading = false
+      } catch {
+        this.loading = false
+      }
     },
     // 搜索
     handelSearch (resrtCurrentPage = true) {

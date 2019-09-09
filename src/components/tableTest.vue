@@ -10,6 +10,15 @@ import { Input } from 'element-ui'
 export default {
   data () {
     return {
+      value: '',
+      options: [{
+        value: '选项1',
+        label: '黄金糕'
+      },
+      {
+        value: '选项2',
+        label: '黄金糕1'
+      } ],
       tableData: [
         {
           name: '111',
@@ -21,10 +30,9 @@ export default {
       },
       searchItems: [
         {
+          type: 'text',
           key: 'act_type',
-          class: 'w-100',
-          component: Input,
-          props: {}
+          class: 'w-100'
         }
       ],
       remoteProps: {
@@ -65,6 +73,7 @@ export default {
   },
   methods: {
     test (data) {
+      this.value = data
       console.log(data)
     }
   }
