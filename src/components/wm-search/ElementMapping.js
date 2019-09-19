@@ -6,12 +6,5 @@ export default {
   radio: {
     component: 'el-radio',
     props: {}
-  },
-  select: {
-    component: 'el-select',
-    children: {
-      component: 'el-option'
-    },
-    props: {}
   }
 }

@@ -162,7 +162,7 @@ export default {
         this.total = this.getProps(totalProps, data)
         this.isLoading = false
       } catch {
-        this.loading = false
+        this.isLoading = false
       }
     },
     // 搜索

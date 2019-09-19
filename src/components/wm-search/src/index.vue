@@ -1,34 +1,15 @@
 <template>
   <section>
     <template v-for="(searchItem,index) in searchItems">
-      <render
-        v-if="searchItem.component"
-        v-show="searchItem._ifRender"
-        :class="searchItem.class"
-        :component="searchItem.tag"
-        :props="searchItem.props || {}"
-        :key="`${searchItem.key}_${index}`"
-        v-model="searchData[searchItem.key]"
-        @change="handelChange"
-      ></render>
       <component
-        v-else
-        v-show="searchItem._ifRender"
-        :class="searchItem.class"
+        v-if="searchItem._ifRender"
         v-model="searchData[searchItem.key]"
         :is="searchItem.tag"
         v-bind="searchItem.props || {}"
+        v-on="searchItem.events"
         :key="`${searchItem.key}_${index}`"
         @change="handelChange"
       >
-        <template v-if="searchItem.childrenTag">
-          <component
-            v-for="(item,i) in searchItem.props.options"
-            v-bind="item"
-            :key="`${searchItem.key}_${index}_${i}`"
-            :is="searchItem.childrenTag"
-          />
-        </template>
       </component>
     </template>
   </section>
